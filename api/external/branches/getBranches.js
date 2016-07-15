@@ -1,5 +1,7 @@
+
+
 module.exports.do = function (req, res, next) {
-  
+
    var Branche = global.Objects.Branche;
 
   Branche.fetchAll().then(function (collection) {
@@ -8,6 +10,5 @@ module.exports.do = function (req, res, next) {
     console.log(error);
     res.send('An error occured');
   });
-  
-  
+
 };

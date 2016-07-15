@@ -1,4 +1,4 @@
-/// <reference path="../typings/node/node.d.ts"/>
+
 /**
 *   __init__
 *   Server router for Node.JS handler.
@@ -21,11 +21,11 @@ var routes       =require('./routes.js').routes;
 var jwt = require('jsonwebtoken');
 var knex= require('knex');
 var common = require('./common.js');
-var Itembasket = require('./basket.js');
+var ItembasketObject = require('./basket.js');
 var settings = require('./settings.js');
 
 global.Settings=settings;
-global.Itembasket=Itembasket;
+global.ItembasketObject=ItembasketObject;
 common();
 
 var knex = require('./knex.js');

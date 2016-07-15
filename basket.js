@@ -4,4 +4,11 @@ var Itembasket = [
     14686,
     13990
 ];
-module.exports = Itembasket;
+
+var stores = [211,212];
+var chainId = 7290027600007;
+module.exports = {
+    Itembasket: Itembasket,
+    stores: stores,
+    chainId: chainId
+};
