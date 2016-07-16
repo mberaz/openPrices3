@@ -6,7 +6,7 @@ var Itembasket = [
 ];
 
 var stores = [211,212];
-var chainId = 7290027600007;
+var chainId = 7290696200003;
 module.exports = {
     Itembasket: Itembasket,
     stores: stores,

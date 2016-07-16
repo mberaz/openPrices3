@@ -131,6 +131,26 @@ function init() {
         return matches;
     };
 
+    Array.prototype.first = function (fnPredicate)
+    {/// <summary>return an obeject from the array that matches the serach, if no object is found null is returned, if more then 1 element is found the first is returned </summary>
+        /// <param name="fnPredicate" type="function">search function delegete (roles.firstOrDefault(function () {return this.RoleId == item.RoleId; }))</param>
+        var len = this.length;
+        if (typeof fnPredicate != "function")
+            throw new TypeError();
+
+        for (var i = 0; i < len; i++)
+        {
+            if (i in this)
+            {
+                var match = fnPredicate.call((void 0),this[i],i,this);
+                if (match)
+                    return this[i];
+            }
+        }
+
+        return null;
+    };
+
 
 
 
