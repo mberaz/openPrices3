@@ -5,37 +5,37 @@ var jwt = require('jsonwebtoken');
 router.post("/api/external/login", require("./api/external/auth/postLogin.js").do);
 router.post("/api/external/register", require("./api/external/auth/register.js").do);
 // all routes below need to be authenticated 
-router.use(function (req, res, next) {
-  // check header or url parameters or post parameters for token
-  var token = req.body.token || req.query.token || req.headers['access-token'];
-  // decode token
-  if (token) {
-    // verifies secret and checks exp
-    jwt.verify(token, global.Settings.secret, function (err, decoded) {
-      if (err) 
-      {
-        return res.status(403).send({
-          success: false,
-          message: 'Failed to authenticate token.'
-        });
-      }
-      else {
-        // if everything is good, save to request for use in other routes
-        req.decoded = decoded;
-        next();
-      }
-    });
-  }
-  else {
-    // if there is no token
-    // return an error
-    return res.status(403).send({
-      success: false,
-      message: 'No token provided.'
-    });
+// router.use(function (req, res, next) {
+//   // check header or url parameters or post parameters for token
+//   var token = req.body.token || req.query.token || req.headers['access-token'];
+//   // decode token
+//   if (token) {
+//     // verifies secret and checks exp
+//     jwt.verify(token, global.Settings.secret, function (err, decoded) {
+//       if (err) 
+//       {
+//         return res.status(403).send({
+//           success: false,
+//           message: 'Failed to authenticate token.'
+//         });
+//       }
+//       else {
+//         // if everything is good, save to request for use in other routes
+//         req.decoded = decoded;
+//         next();
+//       }
+//     });
+//   }
+//   else {
+//     // if there is no token
+//     // return an error
+//     return res.status(403).send({
+//       success: false,
+//       message: 'No token provided.'
+//     });
 
-  }
-});
+//   }
+// });
 
 router.get("/api/external/basket", require("./api/open/findBasket.js").do);
 
@@ -61,6 +61,8 @@ router.post("/api/external/basket", require("./api/open/findBasket.js").do);
 // router.put("/api/external/branches/:id", require("./api/external/branches/putBranches.js").do);
 // router.put("/api/external/products/:id", require("./api/external/products/putProduct.js").do);
 
-
+router.get('/', function (req, res) {
+  res.render('index.html', { title: 'Hey', message: 'Hello there!'});
+});
 
 module.exports.routes = router;
