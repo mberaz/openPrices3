@@ -14,7 +14,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
 var http = require('http');
- 
+
 var router = express.Router();
 var routes = require('./routes.js').routes;
 //var mongoose    = require('mongoose');
@@ -50,7 +50,7 @@ app.use('/web', express.static(__dirname + '/web'));// set static folder
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: false
+  extended: true
 }));
 
 app.use(cookieParser());
@@ -60,12 +60,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 * Routing controllers sets.
 **/
 app.get('/', function (req, res) {
-    res.render('master', {
-        homepage: {
-            title: 'random hp',
-            items: [{_id:1,title:"mm" }, { _id: 2, title: "vvv" }]
-        }
-    });
+  res.render('master', {
+    homepage: {
+      navbar: [{ href: '#home', name: 'home', active: 'active' },
+        { href: '#stores', name: 'stores', active: ' ' }]
+    }
+  });
 });
 
 app.use('/', routes);

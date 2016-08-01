@@ -56,9 +56,7 @@ module.exports.do = function (req, res, next) {
 
                 outList[i].Items.push(item);
             }
-
         }
-
         res.json({
             items: outList
         });
