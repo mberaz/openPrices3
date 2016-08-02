@@ -62,8 +62,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) {
   res.render('master', {
     homepage: {
-      navbar: [{ href: '#home', name: 'home', active: 'active' },
-        { href: '#stores', name: 'stores', active: ' ' }]
+      navbar: [{ href: '#home', name: 'בית', active: 'active' },
+        { href: '#stores', name: 'חנויות', active: ' ' }]
     }
   });
 });

@@ -12,15 +12,15 @@ $(function () {
             var items = result.items;
             var div = $(".resultsDiv");
             for (var i = 0; items.length > i; i++) {
-                div.append($('<span class="label label-primary storeName-label"> Store name ' + items[i].storeName + '</label>'));
-                div.append($('<span class="label label-primary storeName-label"> Store ID ' + items[i].storeId + '</span>'));
-                div.append($('<span class="label label-primary storeName-label"> Total Item Price ' + items[i].totalItemPrice + '</span>'));
-                div.append($('<span class="label label-primary storeName-label"> Total Item Price Per ' + items[i].totalItemPricePer + '</span>'));
+                div.append($('<span class="label label-primary storeName-label"> שם החנות: ' + items[i].storeName + '</label>'));
+                div.append($('<span class="label label-primary storeName-label"> מזהה חנות:  ' + items[i].storeId + '</span>'));
+                div.append($('<span class="label label-primary storeName-label"> סכום המחירים:  ' + items[i].totalItemPrice + '</span>'));
+                // div.append($('<span class="label label-primary storeName-label"> Total Item Price Per ' + items[i].totalItemPricePer + '</span>'));
 
                 var ul = $('<ul></ul>');
                 for (var j = 0; items[i].Items.length > j; j++) {
                     var x = items[i].Items[j];
-                    ul.append('<li> [' + x.id + ']' + x.name + ' ' + x.price + ' [' + x.pricePer + ' X ' + x.quantity + '] </li>');
+                    ul.append('<li> [' + x.id + '] ' + x.name + ' , ' + x.price + ' שח  [' + x.pricePer + ' , ' + x.quantity + '] </li>');
                 }
                 div.append(ul);
             }

@@ -4,6 +4,7 @@
 
 <head>
     <link href="/web/css/bootstrap.css" rel="stylesheet" />
+    <link href="/web/css/bootstrap-rtl.css" rel="stylesheet" />
     <link href="/web/css/navbar.css" rel="stylesheet" />
     <link href="/web/css/custom.css" rel="stylesheet" />
 </head>
@@ -14,12 +15,14 @@
     <script src="/web/js/jquery-3.1.0.min.js"></script>
     <script src="/web/js/bootstrap.min.js"></script>
     <script src="/web/js/jquery.blockUI.js"></script>
-    
+
     <script src="/web/scripts/homepage.js"></script>
+    <script src="/web/scripts/common.js"></script>
+    <script src="/web/scripts/ext.js"></script>
 
 
     <script type="text/javascript">
-        $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+          common.initLoadingAnimation();
     </script>
 </body>
 
