@@ -26,22 +26,22 @@ module.exports.do = function (req, res, next) {
         // var haveingAllTheProducts = groupedByStore.where(function (x)
         //                             { return x.Items.length == global.ItembasketObject.Itembasket });
         var ordered = groupedByStore.orderBy(function () {
-            return this.Items.sum(function () { return this.price });
+            return this.Items.sum(function () { return this.price; });
         });
 
         var outList = [];
         for (var i = 0; i < ordered.length; i++) {
-            var storeMeta=storesMeta.first(function (x) { return x.store_id === ordered[i].Key });
+            var storeMeta=storesMeta.first(function (x) { return x.store_id === ordered[i].Key; });
             outList[i] = {
                 storeName:storeMeta?storeMeta.store_name:'',
                 storeId: ordered[i].Key,
-                totalItemPrice: ordered[i].Items.sum(function () { return this.price; }),
-                totalItemPricePer: ordered[i].Items.sum(function () { return this.unit_of_measure_price; }),
+                totalItemPrice:Math.round(ordered[i].Items.sum(function () { return this.price; })) ,
+                totalItemPricePer: Math.round(ordered[i].Items.sum(function () { return this.unit_of_measure_price; })),
                 Items: []
             };
             for (var j = 0; j < ordered[i].Items.length; j++) {
                 var old = ordered[i].Items[j];
-                var itemMeta = itemsMeta.first(function (x) { return x.item_id === old.item_id });
+                var itemMeta = itemsMeta.first(function (x) { return x.item_id === old.item_id; });
                 var item = {
                     name: itemMeta ? itemMeta.item_name : '',
                     id: old.item_id,
