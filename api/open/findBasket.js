@@ -12,36 +12,43 @@ module.exports.do = function (req, res, next) {
         .distinct('stores_meta.store_id', 'stores_meta.store_name')
         .select().whereIn('stores_meta.store_id', storeList);
 
+
+    // select chain_id, chain_name from chains
+    // where chain_id=7290696200003
+    var chanisQ = global.Knex.from('chains').where('chain_id', chainId).select('chain_id', 'chain_name');
+
     var itemsQ = global.Knex.from('items_meta')
         .distinct('items_meta.item_id', 'items_meta.item_name')
         .select()
         //.where({ 'items_meta.chain_id': chainId })
         .whereIn('items_meta.item_id', itemsList);
 
-    Promise.all([selectQ, storesQ, itemsQ]).then(function (values) {
+    Promise.all([selectQ, storesQ, itemsQ,chanisQ]).then(function (values) {
         var collection = values[0];
         var storesMeta = values[1];
         var itemsMeta = values[2];
+        var chainMeta=values[3][0];
+
         var groupedByStore = collection.groupBy(function () { return this.store_id; });
         // var haveingAllTheProducts = groupedByStore.where(function (x)
         //                             { return x.Items.length == global.ItembasketObject.Itembasket });
         var ordered = groupedByStore.orderBy(function () {
-            return this.Items.sum(function () { return this.price; });
+            return this.Items.sum(function () { return this.price });
         });
 
         var outList = [];
         for (var i = 0; i < ordered.length; i++) {
-            var storeMeta=storesMeta.first(function (x) { return x.store_id === ordered[i].Key; });
+            var storeMeta = storesMeta.first(function (x) { return x.store_id === ordered[i].Key });
             outList[i] = {
-                storeName:storeMeta?storeMeta.store_name:'',
+                storeName:(chainMeta? (chainMeta.chain_name+' '):'')+''+( storeMeta ? storeMeta.store_name : ''),
                 storeId: ordered[i].Key,
-                totalItemPrice:Math.round(ordered[i].Items.sum(function () { return this.price; })) ,
-                totalItemPricePer: Math.round(ordered[i].Items.sum(function () { return this.unit_of_measure_price; })),
+                totalItemPrice: ordered[i].Items.sum(function () { return this.price; }),
+                totalItemPricePer: ordered[i].Items.sum(function () { return this.unit_of_measure_price; }),
                 Items: []
             };
             for (var j = 0; j < ordered[i].Items.length; j++) {
                 var old = ordered[i].Items[j];
-                var itemMeta = itemsMeta.first(function (x) { return x.item_id === old.item_id; });
+                var itemMeta = itemsMeta.first(function (x) { return x.item_id === old.item_id });
                 var item = {
                     name: itemMeta ? itemMeta.item_name : '',
                     id: old.item_id,

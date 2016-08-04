@@ -6,11 +6,10 @@ $(function () {
             ],
             stores: [211, 212], chainId: 7290696200003
         };
-        // $.blockUI();
+        var div = $(".resultsDiv").empty();
         $.post('/api/external/basket', data, function (result) {
-            // $.unblockUI();
             var items = result.items;
-            var div = $(".resultsDiv");
+            
             for (var i = 0; items.length > i; i++) {
                 div.append($('<span class="label label-primary storeName-label"> שם החנות: ' + items[i].storeName + '</label>'));
                 div.append($('<span class="label label-primary storeName-label"> מזהה חנות:  ' + items[i].storeId + '</span>'));
