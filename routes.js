@@ -40,8 +40,12 @@ router.post("/api/external/register", require("./api/external/auth/register.js")
 router.get("/api/external/basket", require("./api/open/findBasket.js").do);
 
 router.post("/api/external/basket", require("./api/open/findBasket.js").do);
+router.get("/api/external/chains/:id", require("./api/open/chains/getChain.js").do);
+
+
 //GET
  router.get("/api/external/branches", require("./api/external/branches/getBranches.js").do);
+
 // router.get("/api/external/products/:name", require("./api/external/products/getProduct.js").do);
 // router.get("/api/external/products", require("./api/external/products/getProducts.js").do);
 // router.get("/api/external/stores", require("./api/external/stores/getStores.js").do);
